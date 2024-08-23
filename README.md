@@ -21,3 +21,6 @@ The project has two modes:
 - Physical Projector
 - GoPiGo Robot.
 
+----
+#### NOTE:
+Please note that while this repository contains the final version fo the project. Much of the development process, including continuous code updates, was done in a private repository. As a result, this repository contains only a few commits.
