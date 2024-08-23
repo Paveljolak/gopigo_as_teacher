@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Graph Editor</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="button-column">
+        <div class="button-group">
+          <button id="downloadButton">Download Text</button>
+          <button id="resetGraphButton">Reset Graph</button>
+          <button id="clearCanvasButton">Clear Canvas</button>
+        </div>
+        <div class="button-group">
+          <button id="showDijkstraPseudo">Show Dijkstra Popup</button>
+          <button id="aStarShowPseudoButton">Show A* Popup</button>
+          <button id="showBellmanFordPseudo">Show Bellman-Ford Popup</button>
+        </div>
+      </div>
+
+      <div class="canvas-container">
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <div class="mode-container">
+          <button id="modeButton">Switch Mode</button>
+          <div id="mode">Vertex mode</div>
+        </div>
+      </div>
+
+      <div class="button-column">
+        <div class="button-group">
+          <button id="dijkstraButton">Run Dijkstra</button>
+          <button id="aStarButton">Run A Star</button>
+          <button id="bellmanFordButton">Run Bellman-Ford</button>
+        </div>
+        <div class="button-group">
+          <button id="dijkstraRobotButton">Run Dijkstra Robot</button>
+          <button id="aStarRobotButton">Run A* Robot</button>
+          <button id="bellmanFordRobotButton">Run Bellman-Ford Robot</button>
+        </div>
+      </div>
+    </div>
+    <!-- -----------------------------------------------------------------------
+    -----------------------------------------------------------------------
+    ----------------------------------------------------------------------- -->
+    <!-- Adding weight to edges popup -->
+    <div id="popup-overlay" class="popup-overlay"></div>
+    <div id="popup" class="popup">
+      <div class="popup-header">Edge Weight</div>
+      <div class="popup-content">
+        <input type="number" id="edge-weight" value="1" min="0" />
+        <button onclick="confirmWeight()">Confirm</button>
+      </div>
+    </div>
+
+    <!-- -----------------------------------------------------------------------
+    -----------------------------------------------------------------------
+    ----------------------------------------------------------------------- -->
+
+    <!-- -----------------------------------------------------------------------
+    -----------------------------------------------------------------------
+    ----------------------------------------------------------------------- -->
+    <!-- Dijksras Pseudo code -->
+    <div id="popup-dijkstraPseudo" class="popup-dijkstraPseudo">
+      <button onclick="closeDijkstraPseudo()" id="closeDijkstraPseudo">
+        Close
+      </button>
+      <div class="code-snippet">
+        <p>for each vertex v:</p>
+        <p>|&emsp;dist[v] = ∞</p>
+        <p>|&emsp;prev[v] = none</p>
+        <p>dist[source] = 0</p>
+        <p>set all vertices to unexplored</p>
+        <p>while exists a non explored vertex:</p>
+        <p>|&emsp;v = least-valued unexplored vertex</p>
+        <p>|&emsp;set v to explored</p>
+        <p>|&emsp;for each edge (v, w):</p>
+        <p>|&emsp;|&emsp;if dist[v] + len(v, w) &lt; dist[w]:</p>
+        <p>|&emsp;|&emsp;|&emsp;dist[w] = dist[v] + len(v, w)</p>
+        <p>|&emsp;|&emsp;|&emsp;prev[w] = v</p>
+        <p>Traverse from destination to start</p>
+        <p>Reverse that path</p>
+      </div>
+    </div>
+    <!-- -----------------------------------------------------------------------
+    -----------------------------------------------------------------------
+    ----------------------------------------------------------------------- -->
+
+    <!-- -----------------------------------------------------------------------
+    -----------------------------------------------------------------------
+    ----------------------------------------------------------------------- -->
+    <!-- A* Pseudo code -->
+    <div id="popup-aStarPseudo" class="popup-aStarPseudo">
+      <button onclick="closeAStarPseudo()" id="closeAStarPseudo">Close</button>
+      <div class="code-snippet">
+        <p>initialize openSet with source</p>
+        <p>for each vertex v:</p>
+        <p>|&emsp;gScore[v] = ∞</p>
+        <p>|&emsp;fScore[v] = ∞</p>
+        <p>|&emsp;prev[v] = none</p>
+        <p>gScore[source] = 0</p>
+        <p>fScore[source] = heuristic(source, target)</p>
+        <p>while openSet is not empty:</p>
+        <p>|&emsp;current = vertex in openSet with lowest fScore</p>
+        <p>|&emsp;if current == target:</p>
+        <p>|&emsp;|&emsp;break</p>
+        <p>|&emsp;for each neighbor of current:</p>
+        <p>
+          |&emsp;|&emsp;tentative_gScore = gScore[current] + dist(current,
+          neighbor)
+        </p>
+        <p>|&emsp;|&emsp;if tentative_gScore < gScore[neighbor]:</p>
+        <p>|&emsp;|&emsp;|&emsp;prev[neighbor] = current</p>
+        <p>|&emsp;|&emsp;|&emsp;gScore[neighbor] = tentative_gScore</p>
+        <p>
+          |&emsp;|&emsp;|&emsp;fScore[neighbor] = gScore[neighbor] +
+          heuristic(neighbor, target)
+        </p>
+        <p>|&emsp;|&emsp;if neighbor not in openSet:</p>
+        <p>|&emsp;|&emsp;|&emsp;add neighbor to openSet</p>
+        <p>if target reached:</p>
+        <p>|&emsp;reconstruct path from target to source</p>
+      </div>
+    </div>
+
+    <!-- -----------------------------------------------------------------------
+    -----------------------------------------------------------------------
+    ----------------------------------------------------------------------- -->
+
+    <!-- -----------------------------------------------------------------------
+    -----------------------------------------------------------------------
+    ----------------------------------------------------------------------- -->
+    <!-- Bellman-Ford Pseudo code -->
+    <div id="bellmanFordInfo" class="bellmanFordAlgorithmInfo">
+      <h3>Bellman-Ford Algorithm Progress</h3>
+      <p id="currentIteration"></p>
+      <p id="totalIterations"></p>
+      <p id="earlyStop"></p>
+    </div>
+
+    <!-- Bellman-Ford Pseudo code -->
+    <div id="popup-bellmanFordPseudo" class="popup-bellmanFordPseudo">
+      <button onclick="closeBellmanFordPseudo()" id="closeBellmanFordPseudo">
+        Close
+      </button>
+      <div class="code-snippet">
+        <p>for each vertex v in vertices:</p>
+        <p>|&emsp;distance[v] = infinity</p>
+        <p>|&emsp;predecessor[v] = null</p>
+        <p>distance[source] = 0</p>
+        <p>for i from 1 to |V| - 1:</p>
+        <p>|&emsp;for each edge (u, v) in edges:</p>
+        <p>|&emsp;|&emsp;if distance[u] + weight(u, v) < distance[v]:</p>
+        <p>|&emsp;|&emsp;|&emsp;distance[v] = distance[u] + weight(u, v)</p>
+        <p>|&emsp;|&emsp;|&emsp;predecessor[v] = u</p>
+        <p>for each edge (u, v) in edges:</p>
+        <p>|&emsp;if distance[u] + weight(u, v) < distance[v]:</p>
+        <p>|&emsp;|&emsp;error "Graph contains a negative-weight cycle"</p>
+      </div>
+    </div>
+    <!-- -----------------------------------------------------------------------
+    -----------------------------------------------------------------------
+    ----------------------------------------------------------------------- -->
+  </body>
+  <script src="script.js"></script>
+</html>

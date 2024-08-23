@@ -1,0 +1,12 @@
+Edge name: AA, Weight: 0
+Edge name: BB, Weight: 0
+Edge name: CC, Weight: 0
+Edge name: DD, Weight: 0
+Edge name: AB, Weight: 1
+Edge name: BA, Weight: 1
+Edge name: BD, Weight: 1
+Edge name: DB, Weight: 1
+Edge name: CD, Weight: 1
+Edge name: DC, Weight: 1
+Edge name: CA, Weight: 1
+Edge name: AC, Weight: 1

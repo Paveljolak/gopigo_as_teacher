@@ -1,0 +1,4 @@
+Vertex name: A, X: 0, Y: 0
+Vertex name: B, X: 10, Y: 0
+Vertex name: C, X: 0, Y: 10
+Vertex name: D, X: 10, Y: 10

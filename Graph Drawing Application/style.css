@@ -1,0 +1,197 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 98%;
+  }
+  
+  .button-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .canvas-container {
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  canvas {
+    border: 1px solid #000000;
+    cursor: pointer;
+  }
+  
+  .mode-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  #modeButton {
+    margin-right: 15px;
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  #non-robot-buttons {
+    grid-column: 1 / 2;
+  }
+  
+  #robot-buttons {
+    grid-column: 3 / 4;
+  }
+  
+  button {
+    padding: 10px 5px;
+    width: 100%;
+    font-size: 15px;
+    cursor: pointer;
+    background-color: #1edb89;
+    border: none;
+    padding: 10px 10 px;
+  }
+  
+  /* Enhanced Popup Styling */
+  .popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); 
+    padding: 20px;
+    background: #ffffff; 
+    border-radius: 8px; 
+    border: 1px solid #ddd; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+    width: 300px; 
+  }
+  
+  /* Popup Header */
+  .popup-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  /* Container for aligning input and button */
+  .popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+  }
+  
+  /* Align input field and button within the container */
+  .popup input[type="number"],
+  .popup button {
+    width: 100%; 
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    box-sizing: border-box; 
+  }
+  
+  .popup input[type="number"] {
+    border: 1px solid #ddd; 
+  }
+  
+  .popup button {
+    background-color: #1edb89; 
+    color: #000000;
+    border: none;
+    transition: background-color 0.3s ease; 
+  }
+  
+  /* Overlay Styling */
+  .popup-overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); 
+    z-index: 999; 
+  }
+  
+  /* Active State for Popup */
+  .popup.active {
+    display: block;
+  }
+  
+  .popup-dijkstraPseudo,
+  .popup-aStarPseudo,
+  .popup-bellmanFordPseudo {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .popup-dijkstraPseudo.active,
+  .popup-aStarPseudo.active,
+  .popup-bellmanFordPseudo.active {
+    display: block;
+  }
+  
+  #closeDijkstraPseudo,
+  #closeAStarPseudo,
+  #closeBellmanFordPseudo {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .code-snippet {
+    background-color: #a1a0a0;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 1.5em;
+    line-height: 0.5;
+  }
+  
+  .bellmanFordAlgorithmInfo {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+  }
+  
+  .bellmanFordAlgorithmInfo h3 {
+    margin-top: 0;
+  }
+  
